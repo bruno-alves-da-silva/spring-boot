@@ -19,6 +19,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @AllArgsConstructor
 */
+@ToString(exclude = "autor")
 public class Livro {
 
     @Id
@@ -42,7 +43,10 @@ public class Livro {
     @Column(name = "preco", precision = 18, scale = 2)
     private BigDecimal preco;
 
-    @ManyToOne
+    @ManyToOne(
+        fetch = FetchType.LAZY
+        //cascade = CascadeType.ALL // O Cascade não é tão utilizado, pois a aplicação pode ter um comportamento não desejado por conta do delete
+    )
     @JoinColumn(name = "id_autor")
     private Autor autor;
 
